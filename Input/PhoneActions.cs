@@ -105,7 +105,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""9bd73b08-315f-43ed-b24c-f510b654043c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -132,7 +132,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""name"": ""Stomp"",
                     ""type"": ""Button"",
                     ""id"": ""dd3e1e16-9e29-42ce-b618-d4c8900f1865"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -195,7 +195,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""name"": ""Grind Brake"",
                     ""type"": ""Button"",
                     ""id"": ""1d18a76a-b96f-4e21-ae2c-1909c63d1ad3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -204,7 +204,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""e9c1c07d-a613-414d-b304-d6608cf6cf0c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -277,6 +277,15 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""0b8ad362-46a0-41fb-8ffa-4288a9b18c43"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1444d99-76b0-47cc-809c-5ad97af1bcd7"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -626,17 +635,6 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b8d020cd-654c-41ff-8345-2553b785b6c5"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Grind Brake"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c86839cf-98b6-4f13-affe-6ae455ca5f28"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
@@ -700,6 +698,17 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
                     ""action"": ""UnDraw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c902003-db3c-4511-9ab0-cb2ce66f53ad"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -729,6 +738,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
         m_Gameplay_SwimUp = m_Gameplay.FindAction("Swim Up", throwIfNotFound: true);
         m_Gameplay_Spin = m_Gameplay.FindAction("Spin", throwIfNotFound: true);
         m_Gameplay_AirDive = m_Gameplay.FindAction("AirDive", throwIfNotFound: true);
+        m_Gameplay_Interaction = m_Gameplay.FindAction("Interaction", throwIfNotFound: true);
     }
 
     ~@PhoneActions()
@@ -830,6 +840,7 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SwimUp;
     private readonly InputAction m_Gameplay_Spin;
     private readonly InputAction m_Gameplay_AirDive;
+    private readonly InputAction m_Gameplay_Interaction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -926,6 +937,10 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @AirDive => m_Wrapper.m_Gameplay_AirDive;
         /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Interaction".
+        /// </summary>
+        public InputAction @Interaction => m_Wrapper.m_Gameplay_Interaction;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
@@ -1014,6 +1029,9 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
             @AirDive.started += instance.OnAirDive;
             @AirDive.performed += instance.OnAirDive;
             @AirDive.canceled += instance.OnAirDive;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         /// <summary>
@@ -1088,6 +1106,9 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
             @AirDive.started -= instance.OnAirDive;
             @AirDive.performed -= instance.OnAirDive;
             @AirDive.canceled -= instance.OnAirDive;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         /// <summary>
@@ -1275,5 +1296,12 @@ public partial class @PhoneActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAirDive(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interaction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

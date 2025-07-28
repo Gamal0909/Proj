@@ -42,6 +42,9 @@ public class PlayerInput : MonoBehaviour
 
     //X Axis movement
     public float AxisX => Axis.x;
+    
+    //Interaction
+    public bool Interact => _inputActions.Gameplay.Interaction.IsPressed();
 
     private void Awake()
     {
